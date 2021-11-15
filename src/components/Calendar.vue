@@ -6,14 +6,14 @@
 
             <!-- Вывод заголовка:  месяц и год --> 
             <div class="head-calendar">
-               <div class="arrow arrow-left">
-                     <p @click="back">&lsaquo;</p>   
+                    <div @click="back" class="arrow arrow-left">
+                     <p>&lsaquo;</p>   
                     </div>
                     <h3>&nbsp; {{ header }} &nbsp; </h3>
-                    <div class="arrow arrow-right">
-                        <p @click="next"> &rsaquo; </p>
+                    <div @click="next" class="arrow arrow-right">
+                        <p> &rsaquo; </p>
                     </div>
-                </div>
+                 </div>                
 
             <table>
                   
@@ -27,8 +27,9 @@
      <tr v-for="week in calendar()" :key="week">					   
 			<!-- Выделяем серым цветом ячейки (класс bg-light bootstrap), чей месяц не текущий 
             Также выделяем цветом сегодняшнее число -->
-            <td v-for="day in week" :key="day" :class="{'bg-light':day.status!=='current','blue':(day.dayOfWeek==0 || day.dayOfWeek==6) ,
-            'today':(day.value===dayCurrent) && (month===monthCurrent) && (year=== yearCurrent) &&(day.status==='current')}"  >
+            <td v-for="day in week" :key="day" :class="{'bg-light':day.status!=='current',
+            'today':(day.value===dayCurrent) && (month===monthCurrent) && (year=== yearCurrent) &&(day.status==='current'),
+            'blue':(day.dayOfWeek==0 || day.dayOfWeek==6) && !((day.value===dayCurrent) && (month===monthCurrent) && (year=== yearCurrent) &&(day.status==='current') ) }"  >
 
             <!-- Если 1-е число месяца- подписываем начало месяца сверху. Берем только первые 3 символа -->
            <!-- <div class="month" v-if="day.value===1"><p>{{day.month}}</p></div>     -->             
@@ -371,8 +372,9 @@ getMonthMethod(monthNumber){
 }
 
 .today {
-    color: green!important;
+    color: green;
     font-weight: 600;
+    border: 3px solid rgba(148, 113, 113, 0.2);
 }
 
 .block-shadow {
@@ -455,6 +457,15 @@ h3 {
     margin-bottom: 0;
     font-size: 12px;
 }
+
+.arrow-left{
+  width:10px;
+}
+
+.arrow-right{
+  width:10px;
+}
+
 
 
 
