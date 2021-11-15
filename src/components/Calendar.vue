@@ -33,8 +33,13 @@
             <!-- Если 1-е число месяца- подписываем начало месяца сверху. Берем только первые 3 символа -->
            <!-- <div class="month" v-if="day.value===1"><p>{{day.month}}</p></div>     -->             
                   <div class="day">    {{ day.value }} </div>
-                  <div class="events">  {{events[0].name}} </div>
-                   
+                  <div class="events" v-for="event in events" :key="event"> 
+                     
+                      <div  v-if= "(day.value === event.date.getDate()) && (monthNumber === event.date.getMonth()) &&(year === event.date.getFullYear())  ">
+                      <span :style="{color:event.type}"> {{event.name}}  </span>     
+
+                      </div>
+                    </div>                   
             </td>
 
   	</tr>	
