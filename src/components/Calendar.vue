@@ -350,7 +350,8 @@ getMonthMethod(monthNumber){
 }
 
 .today {
-    color: red!important;
+    color: green!important;
+    font-weight: 600;
 }
 
 .block-shadow {
