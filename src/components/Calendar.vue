@@ -32,7 +32,8 @@
 
             <!-- Если 1-е число месяца- подписываем начало месяца сверху. Берем только первые 3 символа -->
            <!-- <div class="month" v-if="day.value===1"><p>{{day.month}}</p></div>     -->             
-                    {{ day.value }}
+                  <div class="day">    {{ day.value }} </div>
+                  <div class="events">  {{events[0].name}} </div>
                    
             </td>
 
@@ -345,6 +346,21 @@ getMonthMethod(monthNumber){
 
 <style scoped >
 
+.day{
+    text-align: right;
+}
+
+.events {
+    text-align:left;
+    overflow:hidden;
+  
+}
+
+.events:hover {
+
+    overflow:visible;
+}
+
 .container{
     min-width: 800px;
 }
@@ -363,7 +379,6 @@ table {
     border-top: none;
      width: 100%;
     table-layout: fixed;
-    text-align: right;
     padding: 30px;
 }
 
@@ -378,7 +393,7 @@ tr {
 td{
     vertical-align:top; 
     border: 1px solid #eceff2;
-    padding: 0 2px 50px 50px;
+    padding: 0 2px 50px 0px;
 }
 
 
