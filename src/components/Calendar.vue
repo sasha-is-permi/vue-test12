@@ -27,7 +27,7 @@
      <tr v-for="week in calendar()" :key="week">					   
 			<!-- Выделяем серым цветом ячейки (класс bg-light bootstrap), чей месяц не текущий 
             Также выделяем цветом сегодняшнее число -->
-            <td v-for="day in week" :key="day" :class="{'bg-light':day.status!=='current',
+            <td v-for="day in week" :key="day" :class="{'bg-light':day.status!=='current','blue':(day.dayOfWeek==0 || day.dayOfWeek==6) ,
             'today':(day.value===dayCurrent) && (month===monthCurrent) && (year=== yearCurrent) &&(day.status==='current')}"  >
 
             <!-- Если 1-е число месяца- подписываем начало месяца сверху. Берем только первые 3 символа -->
@@ -123,7 +123,6 @@ props:{
 
         let daysPrevious =   this.monthCalendar(monthPreviousNumber,yearPrevious,"previous")
 
- 
         // Календарь на будущий месяц.       
         let monthNextNumber =  this.monthNumber+1;
         let yearNext =  this.year;
@@ -162,16 +161,17 @@ props:{
            // другими словами: «последнее число прошлого месяца»
            // Поскольку передаем следующий месяц- this.monthNumber + 1 - возращается последний день текущего месяца
 			let dlast = new Date(year, monthNumber + 1, 0).getDate();
-                 
+            let dayOfWeek = 1 // День недели     
                 // Цикл по дням- с первого дня месяца до последнего 
                 for (let i = 1; i <= dlast; i++) {
 
-                   // getDay возвращает целое число, обозначающее день недели: 1 - понедельник             
-                    if (new Date(year, monthNumber, i).getDay() != 1) {
+                   // getDay возвращает целое число, обозначающее день недели: 1 - понедельник   
+                       dayOfWeek = new Date(year, monthNumber, i).getDay();          
+                    if (dayOfWeek!= 1) {
                         // Если день недели не понедельник- заносим номер дня в массив для текущей недели days[week]
                         // (получается двумерный массив)
                         // Добавляем число, сокращенное наименование месяца и статус- текущий, прошлый, будущий 
-						days[week].push({value:i,month:monthName,status:statusMonth});					
+						days[week].push({value:i,month:monthName,status:statusMonth,dayOfWeek:dayOfWeek});					
 						}
                      else {
                         // Если день недели  понедельник- начинаем новую неделю в двумерном массиве days[week]
@@ -180,7 +180,7 @@ props:{
                         // создаем новый элемент массива						
                         days[week] = [];
                         //  заносим номер дня в массив                        
-                        days[week].push({value:i,month:monthName,status:statusMonth});
+                        days[week].push({value:i,month:monthName,status:statusMonth,dayOfWeek:dayOfWeek});
 						
 						}
                     }
